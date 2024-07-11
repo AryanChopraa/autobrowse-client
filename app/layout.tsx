@@ -2,7 +2,9 @@ import '@/styles/globals.css';
 import { Inter } from 'next/font/google';
 import type { Metadata } from 'next';
 import Provider from '@/redux/provider';
-import { Footer, Navbar } from '@/components/common';
+import { Navbar } from '@/components/common';
+import  Footer  from '@/components/homepage/footer/Footer';
+import  Navbarreal from '@/components/homepage/navbar/Navbar';
 import { Setup } from '@/components/utils';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -22,11 +24,13 @@ export default function RootLayout({
 			<body className={inter.className}>
 				<Provider>
 					<Setup />
-					<Navbar />
-					<div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 my-8'>
+					<Navbar/>
+					{/* <Navbarreal /> */}
+			
+					<div className=''>
 						{children}
 					</div>
-					<Footer />
+					<Footer/>
 				</Provider>
 			</body>
 		</html>
