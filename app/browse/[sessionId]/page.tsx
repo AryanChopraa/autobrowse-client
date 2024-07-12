@@ -2,6 +2,8 @@
 
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
+import { useParams } from 'next/navigation';
+import {useGetObjectivesQuery} from '@/redux/features/tasksApiSlice';
 
 interface Message {
   type: string;
@@ -22,39 +24,50 @@ const Page = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState<string>('');
   const [screenshot, setScreenshot] = useState<string | null>(null);
+  const { sessionId } = useParams();
+  const { 
+    data, 
+    error,
+    isSuccess,
+    isLoading, 
+  } = useGetObjectivesQuery(sessionId, { skip: !sessionId });
 
   useEffect(() => {
-    const ws = new WebSocket('ws://localhost:8000/ws/chat/');
-    
-    ws.onopen = () => {
-      console.log('WebSocket connected');
-      const initialMessage = { objective:'go to amazon and search for iphone 15 get me the price' };
-      ws.send(JSON.stringify(initialMessage));
+    if (isSuccess && data) {
+      console.log("response", data);
+      setObjective(data.objective);
 
-    };
+      const ws = new WebSocket('ws://localhost:8000/ws/chat/');
+      
+      ws.onopen = () => {
+        console.log('WebSocket connected');
+        const initialMessage = { objective: data.objective };
+        ws.send(JSON.stringify(initialMessage));
+      };
 
-    ws.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      if (data.message) {
-        setMessages(prevMessages => [...prevMessages, { type: 'system', content: data.message }]);
-      }
-      if (data.response) {
-        setMessages(prevMessages => [...prevMessages, { type: 'ai', content: data.response }]);
-      }
-      if (data.screenshot) {
-        setScreenshot(data.screenshot);
-      }
-      if (data.final_response) {
-        setMessages(prevMessages => [...prevMessages, { type: 'final', content: data.final_response }]);
-      }
-    };
+      ws.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        if (data.message) {
+          setMessages(prevMessages => [...prevMessages, { type: 'system', content: data.message }]);
+        }
+        if (data.response) {
+          setMessages(prevMessages => [...prevMessages, { type: 'ai', content: data.response }]);
+        }
+        if (data.screenshot) {
+          setScreenshot(data.screenshot);
+        }
+        if (data.final_response) {
+          setMessages(prevMessages => [...prevMessages, { type: 'final', content: data.final_response }]);
+        }
+      };
 
-    setSocket(ws);
+      setSocket(ws);
 
-    return () => {
-      ws.close();
-    };
-  }, []);
+      return () => {
+        ws.close();
+      };
+    }
+  }, [isSuccess, data]);
 
   return (
     <div className="flex bg-gray-900 text-white">

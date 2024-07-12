@@ -3,13 +3,13 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="rounded-lg">
-      <div className="w-full max-w-screen-xl mx-auto py-4 px-4 md:py-8">
+    <footer className="bg-black">
+      <div className="w-full max-w-screen-xl mx-auto py-4 px-4 md:py-8 ">
         <div className="sm:flex sm:items-center sm:justify-between">
           <a href="https://flowbite.com/" className="flex items-center mb-4 sm:mb-0">
-            <span className="self-center text-2xl font-semibold whitespace-nowrap">autosurf.<text className="text-blue-500">ai</text></span>
+            <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">autosurf.<text className="text-blue-500">ai</text></span>
           </a>
-          <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0">
+          <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-white sm:mb-0">
             <li>
               <a href="#" className="mr-4 hover:underline md:mr-6">About</a>
             </li>
@@ -19,7 +19,7 @@ const Footer = () => {
             <li>
               <a href="#" className="mr-4 hover:underline md:mr-6">Licensing</a>
             </li>
-            <li>d 
+            <li>
               <a href="#" className="hover:underline">Contact</a>
             </li>
           </ul>
