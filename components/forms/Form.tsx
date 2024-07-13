@@ -30,7 +30,7 @@ export default function Form({
 	onSubmit,
 }: Props) {
 	return (
-		<form className='space-y-6' onSubmit={onSubmit}>
+		<form className='space-y-6 text-white'  onSubmit={onSubmit}>
 			{config.map(input => (
 				<Input
 					key={input.labelId}
@@ -48,7 +48,7 @@ export default function Form({
 			<div>
 				<button
 					type='submit'
-					className='flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+					className='flex w-full justify-center rounded-md bg-blue-500 text-md font-semibold leading-6 text-white shadow-sm hover:bg-blue-600 py-3 px-6'
 					disabled={isLoading}
 				>
 					{isLoading ? <Spinner sm /> : `${btnText}`}

@@ -23,7 +23,7 @@ export default function Page() {
 
 	if (isLoading || isFetching) {
 		return (
-			<div className='flex justify-center my-8'>
+			<div className='flex justify-center my-8 text-white'>
 				<Spinner lg />
 			</div>
 		);
@@ -31,14 +31,14 @@ export default function Page() {
 
 	return (
 		<>
-			<header className='bg-white shadow'>
+			<header className='shadow text-white mt-24'>
 				<div className='mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8'>
-					<h1 className='text-3xl font-bold tracking-tight text-gray-900'>
-						Dashboard
+					<h1 className='text-5xl font-bold tracking-tight text-white'>
+						Account
 					</h1>
 				</div>
 			</header>
-			<main className='mx-auto max-w-7xl py-6 my-8 sm:px-6 lg:px-8'>
+			<main className='mx-auto max-w-7xl py-6 my-8 sm:px-6 lg:px-8 text-white text-2xl'>
 				<List config={config} />
 			</main>
 		</>

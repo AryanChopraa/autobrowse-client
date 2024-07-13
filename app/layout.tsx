@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import Provider from '@/redux/provider';
 import { Navbar } from '@/components/common';
 import  Footer  from '@/components/homepage/footer/Footer';
-import  Navbarreal from '@/components/homepage/navbar/Navbar';
+import  Navbarr from '@/components/homepage/navbar/Navbar';
 import { Setup } from '@/components/utils';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -20,14 +20,15 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang='en'>
+		<html lang='en' className='bg-black'>
 			<body className={inter.className}>
 				<Provider>
 					<Setup />
-					<Navbar/>
-					{/* <Navbarreal /> */}
+					{/* <Navbar/> */}
+					<Navbarr/>
+					
 			
-					<div className=''>
+					<div className='bg-black'>
 						{children}
 					</div>
 					<Footer/>

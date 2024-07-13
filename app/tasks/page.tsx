@@ -46,25 +46,19 @@ const Page: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-900 to-black text-white p-8">
-      <header className="flex justify-between items-center mb-16">
-        <div className="flex items-center space-x-2">
-          <span className="text-2xl font-bold">autosurf.ai</span>
-          <span className="text-gray-400">//user automations</span>
-        </div>
-        <button className="bg-blue-700 px-4 py-2 rounded-full text-sm">Use via API</button>
-      </header>
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white p-8 pt-24">
+
 
       <main className="max-w-3xl mx-auto">
-        <h1 className="text-4xl font-bold mb-4 text-center">Enter a goal for the browser agent.</h1>
+        <h1 className="text-5xl font-semibold mb-7 text-center">Enter a goal for your browser agent.</h1>
 
-        <div className="bg-white rounded-lg mb-4 text-black">
+        <div className="rounded-lg mb-4 text-white">
           <input
             type="text"
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             placeholder="Write prompt here"
-            className="w-full bg-transparent outline-none p-2"
+            className="w-full bg-gray-900 outline-none  px-10 py-6 rounded-full"
           />
         </div>
 
@@ -84,7 +78,7 @@ const Page: React.FC = () => {
             </div>
           ) : (
             <button 
-              className="text-blue-400 disabled:opacity-50" 
+              className="text-blue-400 disabled:opacity-50 hover:text-blue-600" 
               onClick={handleAddTask} 
               disabled={!prompt.trim()}
             >
@@ -98,16 +92,24 @@ const Page: React.FC = () => {
         <div className="flex space-x-4 mb-8">
           <button className="text-blue-400 border-b-2 border-blue-400 pb-1">RECENT RUNS</button>
         </div>
+        
 
-        <div className="space-y-2">
-          {tasksLoading && <div className="text-center">Loading tasks...</div>}
+        <div className="space-y-4">
+          {tasksLoading && <div className="text-center">Loading past runs...</div>}
           {tasksError && <div className="text-center text-red-500">Error: {tasksError.message}</div>}
-          {tasks && tasks.map((task: any) => (
-            <div key={task.id} className="bg-white text-black rounded-lg p-3 text-sm">
-              {task.objective}
+          {tasks && tasks.map((task: any) => ( 
+            <div key={task.session_id} className="bg-gray-900 hover:shadow-lg hover:shadow-blue-900 transition-shadow duration-300 p-10 py-6 rounded-2xl w-full cursor-pointer" onClick={() => router.push(`/browse/${task.session_id}`)}>
+
+             
+              <div className='flex justify-between flex-row text-zinc-300 text-[12px] mb-5 font-mono'>
+                <div>Session Id:{task.session_id}</div>
+                <div>{task.created_on}</div>
+              </div>
+              <div className='text-zinc-200 text-sm'><div className='text-gray-500  text-xs mb-1'>OBJECTIVE </div>  {task.objective}</div>
             </div>
           ))}
         </div>
+    
       </main>
     </div>
   );

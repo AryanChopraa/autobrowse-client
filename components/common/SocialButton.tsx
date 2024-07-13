@@ -8,10 +8,9 @@ interface Props {
 
 export default function SocialButton({ provider, children, ...rest }: Props) {
 	const className = cn(
-		'flex-1 text-white rounded-md px-3 mt-3 py-2 font-medium',
+		'flex-1 text-white rounded-md px-4 mt-3 font-medium py-3 items-center justify-center flex',
 		{
-			'bg-red-500 hover:bg-red-400': provider === 'google',
-			'bg-blue-500 hover:bg-blue-400': provider === 'facebook',
+			'bg-blue-500 hover:bg-blue-600': provider === 'google',
 		}
 	);
 

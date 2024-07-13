@@ -77,11 +77,13 @@ const Page = () => {
   };
 
   return (
-    <div className="flex bg-gray-900 text-white">
+    <div className="flex text-white  pt-24">
       {/* Left Panel */}
-      <div className="w-3/4 p-4 overflow-hidden">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold">Objective: {objective}</h2>
+      <div className="w-3/4 p-4 overflow-hidden bg-slate-900 mx-6 rounded-2xl">
+        <div className="flex flex-col justify-between mx-2 mb-4">
+         
+          <h2 className="text-xs font-semibold uppercase text-gray-400">OBJECTIVE</h2>
+          <h2 className="text-md font-light">{objective}</h2>
         </div>
         <div className="bg-white rounded-lg overflow-hidden">
           {screenshot ? (
@@ -100,10 +102,12 @@ const Page = () => {
       </div>
 
       {/* Right Panel */}
-      <div className="w-1/4 bg-gray-800 p-4 overflow-y-auto" style={{maxHeight: '100vh'}}>
+      <div className="w-1/4 bg-gray-900 rounded-2xl p-4 overflow-y-auto mr-6" style={{maxHeight: '100vh'}}>
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold">Steps</h2>
-          <span className="text-green-400 text-sm">IN PROGRESS</span>
+          <h2 className="text-xs font-bold text-gray-400">STEPS</h2>
+          <span className="text-green-400 text-xs font-bold">
+            {finalResponse ? 'COMPLETED' : 'IN PROGRESS'}
+          </span>
         </div>
         <div className="space-y-4 mb-8">
           {steps.map((step, index) => (
@@ -117,35 +121,43 @@ const Page = () => {
           ))}
         </div>
         {finalResponse && (
-          <div className="mt-8 p-4 bg-gray-700 rounded-lg">
-            <h3 className="text-lg font-semibold mb-2">Final Response:</h3>
-            <p className="text-sm text-gray-300">{finalResponse}</p>
+          <div className="mt-8 p-4 bg-gray-800 rounded-lg">
+            <h3 className="text-sm font-semibold mb-2 uppercase ">Final Response</h3>
+            <p className="text-xs text-gray-300">{finalResponse}</p>
           </div>
         )}
       </div>
 
       {/* Final Response Dialog */}
       {showDialog && (
-        <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center">
-          <div className="bg-gray-800 text-white p-8 rounded-lg max-w-md w-full mx-4">
-            <div className="flex flex-col items-center text-center">
-              <div className="w-16 h-16 bg-gray-700 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <h2 className="text-2xl font-bold mb-4">Run Successful</h2>
-              <p className="text-gray-300 mb-8">{finalResponse}</p>
+          <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4">
+            <div className="bg-gray-900 text-white p-8 rounded-lg max-w-2xl w-full mx-4 relative">
               <button 
-                className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold text-lg w-full"
-                onClick={handleRunAnotherSession}
+                className="absolute top-4 right-4 text-white hover:text-gray-300 text-2xl"
+                onClick={() => setShowDialog(false)}
               >
-                Run another session
+                &times;
               </button>
+              <div className="flex flex-col items-center text-center">
+                <div className="w-16 h-16 bg-gray-700 rounded-lg flex items-center justify-center mb-6">
+                  <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h2 className="text-2xl font-bold mb-6">Run Successful</h2>
+                <p className="text-gray-300 mb-8 w-full">{finalResponse}</p>
+                <button 
+                  className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 rounded-lg font-semibold text-lg w-full max-w-md"
+                  onClick={handleRunAnotherSession}
+                >
+                  Run another session
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+
+
     </div>
   )
 }
@@ -160,7 +172,7 @@ interface StepItemProps {
 const StepItem: React.FC<StepItemProps> = ({ number, explanation, action, completed }) => {
   return (
     <div className="flex items-start">
-      <div className={`w-6 h-6 rounded-full flex items-center justify-center mr-3 ${completed ? 'bg-green-500' : 'bg-gray-600'}`}>
+      <div className={`w-3 h-3 rounded-full flex items-center justify-center mr-2 p-3 ${completed ? 'bg-green-500' : 'bg-gray-700'}`}>
         {completed ? '✓' : number}
       </div>
       <div>
@@ -174,3 +186,7 @@ const StepItem: React.FC<StepItemProps> = ({ number, explanation, action, comple
 }
 
 export default Page
+
+
+
+
