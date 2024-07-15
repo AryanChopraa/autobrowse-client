@@ -33,7 +33,7 @@ const Page = () => {
     if (isSuccess && data) {
       setObjective(data.objective);
 
-      const ws = new WebSocket(`${process.env.SOCKET_HOST}`);
+      const ws = new WebSocket("wss://api.autosurf.tech/ws/chat/");
 
       ws.onopen = () => {
         console.log('WebSocket connected');
