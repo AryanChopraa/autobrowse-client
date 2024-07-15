@@ -1,7 +1,5 @@
-'use client'
-
-import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+"use client"
+import React, { useEffect, useState, Suspense } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useGetObjectivesQuery } from '@/redux/features/tasksApiSlice';
 
@@ -35,8 +33,8 @@ const Page = () => {
     if (isSuccess && data) {
       setObjective(data.objective);
 
-      const ws = new WebSocket('ws://localhost:8000/ws/chat/');
-      
+      const ws = new WebSocket(`${process.env.SOCKET_HOST}`);
+
       ws.onopen = () => {
         console.log('WebSocket connected');
         ws.send(JSON.stringify({ objective: data.objective }));
@@ -77,59 +75,59 @@ const Page = () => {
   };
 
   return (
-    <div className="flex text-white  pt-24">
-      {/* Left Panel */}
-      <div className="w-3/4 p-4 overflow-hidden bg-slate-900 mx-6 rounded-2xl">
-        <div className="flex flex-col justify-between mx-2 mb-4">
-         
-          <h2 className="text-xs font-semibold uppercase text-gray-400">OBJECTIVE</h2>
-          <h2 className="text-md font-light">{objective}</h2>
+    <Suspense fallback={<div>Loading...</div>}>
+      <div className="flex text-white pt-24">
+        {/* Left Panel */}
+        <div className="w-3/4 p-4 overflow-hidden bg-slate-900 mx-6 rounded-2xl">
+          <div className="flex flex-col justify-between mx-2 mb-4">
+            <h2 className="text-xs font-semibold uppercase text-gray-400">OBJECTIVE</h2>
+            <h2 className="text-md font-light">{objective}</h2>
+          </div>
+          <div className="bg-white rounded-lg overflow-hidden">
+            {screenshot ? (
+              <img
+                src={`data:image/jpeg;base64,${screenshot}`}
+                alt="Current Screenshot"
+                className="w-full h-auto"
+                style={{ objectFit: 'contain', maxHeight: '600px' }}
+              />
+            ) : (
+              <div className="w-full h-[600px] flex items-center justify-center text-gray-500">
+                Waiting for screenshot...
+              </div>
+            )}
+          </div>
         </div>
-        <div className="bg-white rounded-lg overflow-hidden">
-          {screenshot ? (
-            <img
-              src={`data:image/jpeg;base64,${screenshot}`}
-              alt="Current Screenshot"
-              className="w-full h-auto"
-              style={{ objectFit: 'contain', maxHeight: '600px' }}
-            />
-          ) : (
-            <div className="w-full h-[600px] flex items-center justify-center text-gray-500">
-              Waiting for the stream to start...
+
+        {/* Right Panel */}
+        <div className="w-1/4 bg-gray-900 rounded-2xl p-4 overflow-y-auto mr-6" style={{maxHeight: '100vh'}}>
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xs font-bold text-gray-400">STEPS</h2>
+            <span className="text-green-400 text-xs font-bold">
+              {finalResponse ? 'COMPLETED' : 'IN PROGRESS'}
+            </span>
+          </div>
+          <div className="space-y-4 mb-8">
+            {steps.map((step, index) => (
+              <StepItem
+                key={index}
+                number={step.number}
+                explanation={step.explanation}
+                action={step.action}
+                completed={step.completed}
+              />
+            ))}
+          </div>
+          {finalResponse && (
+            <div className="mt-8 p-4 bg-gray-800 rounded-lg">
+              <h3 className="text-sm font-semibold mb-2 uppercase ">Final Response</h3>
+              <p className="text-xs text-gray-300">{finalResponse}</p>
             </div>
           )}
         </div>
-      </div>
 
-      {/* Right Panel */}
-      <div className="w-1/4 bg-gray-900 rounded-2xl p-4 overflow-y-auto mr-6" style={{maxHeight: '100vh'}}>
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xs font-bold text-gray-400">STEPS</h2>
-          <span className="text-green-400 text-xs font-bold">
-            {finalResponse ? 'COMPLETED' : 'IN PROGRESS'}
-          </span>
-        </div>
-        <div className="space-y-4 mb-8">
-          {steps.map((step, index) => (
-            <StepItem
-              key={index}
-              number={step.number}
-              explanation={step.explanation}
-              action={step.action}
-              completed={step.completed}
-            />
-          ))}
-        </div>
-        {finalResponse && (
-          <div className="mt-8 p-4 bg-gray-800 rounded-lg">
-            <h3 className="text-sm font-semibold mb-2 uppercase ">Final Response</h3>
-            <p className="text-xs text-gray-300">{finalResponse}</p>
-          </div>
-        )}
-      </div>
-
-      {/* Final Response Dialog */}
-      {showDialog && (
+        {/* Final Response Dialog */}
+        {showDialog && (
           <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4">
             <div className="bg-gray-900 text-white p-8 rounded-lg max-w-2xl w-full mx-4 relative">
               <button 
@@ -157,16 +155,16 @@ const Page = () => {
           </div>
         )}
 
-
-    </div>
-  )
-}
+      </div>
+    </Suspense>
+  );
+};
 
 interface StepItemProps {
-  number: number
-  explanation: string
-  action: string
-  completed: boolean
+  number: number;
+  explanation: string;
+  action: string;
+  completed: boolean;
 }
 
 const StepItem: React.FC<StepItemProps> = ({ number, explanation, action, completed }) => {
@@ -182,11 +180,7 @@ const StepItem: React.FC<StepItemProps> = ({ number, explanation, action, comple
         <p className="text-xs text-gray-400 mt-1">{action}</p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Page
-
-
-
-
+export default Page;

@@ -2,7 +2,7 @@
 
 import { ImGoogle, ImFacebook } from 'react-icons/im';
 import { SocialButton } from '@/components/common';
-import { continueWithGoogle, continueWithFacebook } from '@/utils';
+import { continueWithGoogle } from '@/utils';
 
 export default function SocialButtons() {
 	return (

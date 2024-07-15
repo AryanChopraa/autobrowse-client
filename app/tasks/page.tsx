@@ -17,7 +17,7 @@ const Page: React.FC = () => {
     data: tasks, 
     error: tasksError, 
     isLoading: tasksLoading 
-  } = useGetTasksQuery();
+  } = useGetTasksQuery({});
 
   const [
     addTask, 
@@ -29,6 +29,8 @@ const Page: React.FC = () => {
     error: objectivesError, 
     isLoading: objectivesLoading 
   } = useGetObjectivesQuery(addTaskResponse?.sessionId, { skip: !addTaskResponse?.sessionId });
+
+  
 
   useEffect(() => {
     if (addTaskSuccess && objectives) {
@@ -96,7 +98,11 @@ const Page: React.FC = () => {
 
         <div className="space-y-4">
           {tasksLoading && <div className="text-center">Loading past runs...</div>}
-          {tasksError && <div className="text-center text-red-500">Error: {tasksError.message}</div>}
+          {tasksError && (
+            <div className="text-center text-red-500">
+              Error: {('message' in tasksError) ? tasksError.message : 'An error occurred'}
+            </div>
+          )}
           {tasks && tasks.map((task: any) => ( 
             <div key={task.session_id} className="bg-gray-900 hover:shadow-lg hover:shadow-blue-900 transition-shadow duration-300 p-10 py-6 rounded-2xl w-full cursor-pointer" onClick={() => router.push(`/browse/${task.session_id}`)}>
 
