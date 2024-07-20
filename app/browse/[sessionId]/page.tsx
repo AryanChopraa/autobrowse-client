@@ -219,6 +219,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useGetObjectivesQuery } from '@/redux/features/tasksApiSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { env } from 'process';
 
 interface Step {
   number: number;
@@ -261,7 +262,8 @@ const Page = () => {
     if (isSuccess && data) {
       setObjective(data.objective);
 
-      const ws = new WebSocket("ws://localhost:8080/ws/chat/");
+      const ws = new WebSocket(env.NEXT_PUBLIC_WEBSOCKET_URL || "ws://localhost:8080/ws/chat/");
+    
 
       ws.onopen = () => {
         console.log('WebSocket connected');
