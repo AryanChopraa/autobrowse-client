@@ -2,8 +2,8 @@ import { PasswordResetForm } from '@/components/forms';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-	title: 'Full Auth | Password Reset',
-	description: 'Full Auth password reset page',
+	title: 'Password Reset',
+	description: 'password reset page',
 };
 
 export default function Page() {

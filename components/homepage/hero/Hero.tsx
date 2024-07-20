@@ -27,18 +27,18 @@ function Hero() {
                             </svg>
                         </div>
                         <h1 className="text-white font-bold text-4xl sm:text-5xl md:text-6xl xl:text-7xl mb-8 transition-all duration-500">
-                            Transform Your Customer Support with <span className="text-primary">AI-Driven Chat</span>
+                        Your AI Companion for Seamless  <span className="text-indigo-600">Browser Automation</span>
                         </h1>
                         <p className="text-gray-300 text-lg sm:text-xl mb-12 transition-all duration-500">
-                            Revolutionize Interactions, Boost Efficiency, Delight Customers. Train Your Own AI Chatbot using ChatGPT for Smarter, Personalized Customer Support
+                        Train once, automate forever. Your digital tasks, executed flawlessly.
                         </p>
                         <div className="flex flex-wrap justify-center gap-y-4 gap-x-6">
                             <Link href="/tasks" className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 Get Started
                             </Link>
-                            {/* <Link href="#" className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 transition-colors duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            <Link href="#features" className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 transition-colors duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 Learn More
-                            </Link> */}
+                            </Link>
                         </div>
                     </div>
                 </div>

@@ -1,71 +1,80 @@
-"use client";
+import React from 'react';
+import { FaRobot, FaLightbulb, FaShieldAlt } from 'react-icons/fa';
 
-import Image from "next/image";
-import React, { useState, useEffect } from "react";
-import { WobbleCard } from "../ui/wobble-card";
-
-export function Features() {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
-
+const Features = () => {
   return (
-    <div className={`py-16 px-4 sm:px-6 lg:px-8 transition-all duration-1000 ease-in-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-7xl mx-auto w-full">
-        <WobbleCard
-          containerClassName="col-span-1 lg:col-span-2 h-full bg-pink-800 min-h-[500px] lg:min-h-[300px] rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg"
-          className="p-8 relative"
-        >
-          <div className="max-w-xs z-10 relative">
-            <h2 className="text-left text-balance text-xl md:text-2xl lg:text-3xl font-semibold tracking-[-0.015em] text-white mb-4">
-              Boost Your Productivity
-            </h2>
-            <p className="text-left text-base/6 text-neutral-200">
-              Supercharge your workflows with intelligent automation, allowing you to focus on more critical tasks.
-            </p>
-          </div>
-          <Image
-            src="/linear.webp"
-            width={500}
-            height={500}
-            alt="linear demo image"
-            className="absolute -right-4 lg:-right-[40%] grayscale filter -bottom-10 object-contain rounded-2xl transition-transform duration-300 hover:scale-105"
-          />
-        </WobbleCard>
-        <WobbleCard 
-          containerClassName="col-span-1 min-h-[300px] rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg"
-          className="p-8"
-        >
-          <h2 className="max-w-80 text-left text-balance text-xl md:text-2xl lg:text-3xl font-semibold tracking-[-0.015em] text-white mb-4">
-            Effortless Task Automation
-          </h2>
-          <p className="max-w-[26rem] text-left text-base/6 text-neutral-200">
-            Automate repetitive web tasks seamlessly, saving time and enhancing efficiency with AI-driven processes.
+    <>
+      <div className="overflow-hidden backdrop-blur-md md:-mt-32 sm:py-32 lg:-mb-10 text-white transition-all duration-300 ease-in-out mb-16 sm:mb-16">
+        <div className='flex items-center justify-center px-4 sm:px-6 lg:px-8'>
+          <p className='text-3xl md:text-5xl lg:text-7xl font-bold mb-10 text-center transition-all duration-300 ease-in-out'>
+            Increase your productivity 
           </p>
-        </WobbleCard>
-        <WobbleCard 
-          containerClassName="col-span-1 lg:col-span-3 bg-blue-900 min-h-[500px] lg:min-h-[600px] xl:min-h-[300px] rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg"
-          className="p-8 relative"
-        >
-          <div className="max-w-sm z-10 relative">
-            <h2 className="max-w-sm md:max-w-lg text-left text-balance text-xl md:text-2xl lg:text-3xl font-semibold tracking-[-0.015em] text-white mb-4">
-              Intelligent Workflow Integration
-            </h2>
-            <p className="max-w-[26rem] text-left text-base/6 text-neutral-200">
-              Integrate seamlessly with your existing workflows, optimizing and streamlining complex processes effortlessly.
-            </p>
+        </div>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+            <div className="lg:pr-8 lg:pt-4 text-center lg:text-left">
+              <div className="lg:max-w-lg">
+                <h2 className="text-base font-semibold leading-7 text-blue-500 transition-colors duration-300 ease-in-out">
+                  Intelligent Task Automation
+                </h2>
+                <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl transition-all duration-300 ease-in-out">
+                  Your AI Assistant for Seamless Web Interaction
+                </p>
+                <p className="mt-6 text-lg leading-8">
+                  Revolutionize your web experience with our AI-powered browser automation agent. Create, execute, and manage complex workflows with ease, freeing you to focus on strategic tasks.
+                </p>
+                <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 lg:max-w-none">
+                  <div className="relative pl-9 transition-all duration-300 ease-in-out">
+                    <dt className="inline font-semibold">
+                      <FaRobot className="absolute left-1 top-1 h-5 w-5 text-blue-400" />
+                      Intelligent Automation
+                    </dt>
+                    <dd className="text-gray-400">
+                      Leverage AI to automate complex web tasks, enhancing productivity across all your digital interactions.
+                    </dd>
+                  </div>
+                  <div className="relative pl-9 transition-all duration-300 ease-in-out">
+                    <dt className="inline font-semibold">
+                      <FaLightbulb className="absolute left-1 top-1 h-5 w-5 text-blue-300" />
+                      Adaptive Learning
+                    </dt>
+                    <dd className="text-gray-400">
+                      Our AI agent learns and adapts to your specific needs, continuously improving its automation capabilities.
+                    </dd>
+                  </div>
+                  <div className="relative pl-9 transition-all duration-300 ease-in-out">
+                    <dt className="inline font-semibold">
+                      <FaShieldAlt className="absolute left-1 top-1 h-5 w-5 text-blue-200" />
+                      Secure and Reliable
+                    </dt>
+                    <dd className="text-gray-400">
+                      Enjoy peace of mind with our robust security measures, ensuring safe and dependable automated processes.
+                    </dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+            <div className='flex flex-col gap-5 items-center lg:items-start'>
+              <img
+                src="https://spaces.autosurf.tech/static/homepage-staticfiles/taskspage.png"
+                alt="AI Automation Interface"
+                className="w-full max-w-md lg:max-w-full rounded-xl shadow-xl ring-1 ring-gray-700 object-cover transition-all duration-300 ease-in-out"
+                width={2432}
+                height={1442}
+              />
+              <img
+                src="https://spaces.autosurf.tech/static/homepage-staticfiles/task.png"
+                alt="AI Task Execution"
+                className="w-full max-w-md lg:max-w-full rounded-xl shadow-xl ring-1 ring-gray-700 object-cover transition-all duration-300 ease-in-out hidden lg:block"
+                width={2432}
+                height={1442}
+              />
+            </div>
           </div>
-          <Image
-            src="/linear.webp"
-            width={500}
-            height={500}
-            alt="linear demo image"
-            className="absolute -right-10 md:-right-[40%] lg:-right-[20%] -bottom-10 object-contain rounded-2xl transition-transform duration-300 hover:scale-105"
-          />
-        </WobbleCard>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
+
+export default Features;

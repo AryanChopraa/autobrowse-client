@@ -10,8 +10,8 @@ import { Setup } from '@/components/utils';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-	title: 'Full Auth',
-	description: 'Full Auth application that provides jwt authentication',
+	title: 'autosurf.ai',
+	description: 'AI powered browser autosurf tool',
 };
 
 export default function RootLayout({
