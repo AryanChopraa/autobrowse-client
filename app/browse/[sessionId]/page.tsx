@@ -262,7 +262,7 @@ const Page = () => {
     if (isSuccess && data) {
       setObjective(data.objective);
 
-      const ws = new WebSocket(env.NEXT_PUBLIC_WEBSOCKET_URL || "ws://localhost:8080/ws/chat/");
+      const ws = new WebSocket("wss://api.autosurf.tech/ws/chat/");
     
 
       ws.onopen = () => {
