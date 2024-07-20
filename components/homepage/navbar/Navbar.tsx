@@ -17,7 +17,6 @@ const guestNavItems: NavItem[] = [
 ];
 
 const authNavItems: NavItem[] = [
-
   { label: "Tasks", href: "/tasks" },
   { label: "Profile", href: "/dashboard" },
 ];
@@ -54,9 +53,7 @@ const Navbar: React.FC = () => {
   const navItems = isAuthenticated ? authNavItems : guestNavItems;
 
   return (
-    <div className={`fixed top-0 w-full z-30 transition-all duration-300 ease-in-out ${
-      sticky ? "bg-opacity-90 backdrop-blur-lg shadow-lg" : "bg-transparent"
-    }`}>
+    <div className={`fixed top-0 w-full z-30 transition-all duration-300 ease-in-out bg-opacity-90 backdrop-blur-lg shadow-lg`}>
       <div className="flex flex-col max-w-6xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
         <div className="flex flex-row items-center justify-between p-4">
           <Link href="/"
@@ -94,12 +91,12 @@ const Navbar: React.FC = () => {
             navbarOpen ? "flex" : "hidden"
           }`}
         >
-          <nav className="flex-col flex-grow md:flex md:justify-end md:flex-row">
-            <ul className="flex flex-col list-none md:flex-row md:ml-auto">
+          <nav className="flex-col flex-grow md:flex md:justify-end md:flex-row w-full">
+            <ul className="flex flex-col list-none md:flex-row md:ml-auto w-full md:w-auto items-center">
               {navItems.map((item, index) => (
-                <li key={index} className="nav-item">
+                <li key={index} className="nav-item w-full md:w-auto">
                   <Link href={item.href}
-                    className={`font-medium text-white hover:text-blue-300 px-5 py-3 flex items-center transition duration-150 ease-in-out relative group ${
+                    className={`font-medium text-white hover:text-blue-300 px-5 py-3 flex items-center justify-center md:justify-start transition duration-150 ease-in-out relative group ${
                       isSelected(item.href) ? 'text-blue-300' : ''
                     }`}
                     onClick={() => setNavbarOpen(false)}
@@ -110,13 +107,13 @@ const Navbar: React.FC = () => {
                 </li>
               ))}
               {isAuthenticated && (
-                <li className="nav-item">
+                <li className="nav-item w-full md:w-auto">
                   <button
                     onClick={() => {
                       handleLogout();
                       setNavbarOpen(false);
                     }}
-                    className="font-medium text-white hover:text-blue-300 px-5 py-3 flex items-center transition duration-150 ease-in-out relative group"
+                    className="font-medium text-white hover:text-blue-300 px-5 py-3 flex items-center justify-center md:justify-start w-full transition duration-150 ease-in-out relative group"
                   >
                     Logout
                     <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-in-out"></span>
