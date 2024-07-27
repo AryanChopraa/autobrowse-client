@@ -50,7 +50,7 @@ const Page = () => {
       console.log('Data fetched successfully:', data);
       setObjective(data.objective);
 
-      const ws = new WebSocket("ws://localhost:8080/ws/chat/");
+      const ws = new WebSocket("wss://api.autosurf.tech/ws/chat/");
     
       ws.onopen = () => {
         console.log('WebSocket connected successfully');
