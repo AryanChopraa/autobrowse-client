@@ -27,6 +27,7 @@ const Spinner: React.FC = () => (
 );
 
 const Page = () => {
+  console.log('Initializing Page component');
   const [objective, setObjective] = useState<string>('');
   const [steps, setSteps] = useState<Step[]>([]);
   const [socket, setSocket] = useState<WebSocket | null>(null);
@@ -44,20 +45,24 @@ const Page = () => {
   } = useGetObjectivesQuery(sessionId, { skip: !sessionId });
 
   useEffect(() => {
+    console.log('Entering main useEffect hook');
     if (isSuccess && data) {
+      console.log('Data fetched successfully:', data);
       setObjective(data.objective);
 
-      const ws = new WebSocket("wss://api.autosurf.tech/ws/chat/");
+      const ws = new WebSocket("ws://localhost:8080/ws/chat/");
     
-
       ws.onopen = () => {
-        console.log('WebSocket connected');
+        console.log('WebSocket connected successfully');
         ws.send(JSON.stringify({ objective: data.objective }));
+        console.log('Sent objective to WebSocket:', data.objective);
       };
 
       ws.onmessage = (event) => {
+        console.log('Received message from WebSocket:', event.data);
         const data = JSON.parse(event.data);
         if (data.explanation && data.action) {
+          console.log('Updating steps with new data:', data);
           setSteps(prevSteps => [
             ...prevSteps,
             {
@@ -69,10 +74,13 @@ const Page = () => {
           ]);
         }
         if (data.screenshot) {
+          console.log('Updating screenshot');
           setScreenshot(data.screenshot);
         }
         if (data.final_response) {
+          console.log('Received final response:', data.final_response);
           setFinalResponse(data.final_response);
+          console.log('Setting dialog to show in 4 seconds');
           setTimeout(() => setShowDialog(true), 4000);
         }
       };
@@ -80,6 +88,7 @@ const Page = () => {
       setSocket(ws);
 
       return () => {
+        console.log('Closing WebSocket connection');
         ws.close();
       };
     }
@@ -87,16 +96,20 @@ const Page = () => {
 
   useEffect(() => {
     if (isError) {
+      console.error('Error occurred while fetching objective:', error);
       toast.error('An error occurred while fetching the objective. Redirecting to tasks page.');
+      console.log('Redirecting to tasks page in 3 seconds');
       setTimeout(() => router.push('/tasks'), 3000);
     }
-  }, [isError, router]);
+  }, [isError, router, error]);
 
   const handleRunAnotherSession = () => {
+    console.log('Running another session, redirecting to tasks page');
     router.push('/tasks');
   };
 
   if (isLoading) {
+    console.log('Data is still loading, showing spinner');
     return (
       <div className="flex justify-center items-center h-screen bg-slate-900">
         <Spinner />
@@ -104,6 +117,7 @@ const Page = () => {
     );
   }
 
+  console.log('Rendering main component');
   return (
     <Suspense fallback={<div className="flex justify-center items-center h-screen bg-slate-900"><Spinner /></div>}>
       <div className="flex flex-col md:flex-row text-white pt-24 px-4 md:px-6">
@@ -198,6 +212,7 @@ interface StepItemProps {
 }
 
 const StepItem: React.FC<StepItemProps> = ({ number, explanation, action, completed }) => {
+  console.log(`Rendering StepItem ${number}, completed: ${completed}`);
   return (
     <div className="flex items-start">
       <div className={`w-3 h-3 rounded-full flex items-center justify-center mr-2 p-3 ${completed ? 'bg-green-500' : 'bg-gray-700'}`}>

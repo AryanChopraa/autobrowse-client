@@ -3,7 +3,6 @@ import { apiSlice } from "../services/apiSlice";
 const tasksApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getTasks: builder.query({
-
       query: () => "/fetch_all_tasks/",
     }),
     addTask: builder.mutation({
@@ -15,11 +14,19 @@ const tasksApiSlice = apiSlice.injectEndpoints({
     }),
     getObjectives: builder.query({
       query: (sessionId) => `/fetch_task/${sessionId}/`
-      
-    })
+    }),
+    deleteTask: builder.mutation({
+      query: (sessionId) => ({
+        url: `/delete_tasks/${sessionId}/`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
-
-export const { useGetTasksQuery , useAddTaskMutation , useGetObjectivesQuery} = tasksApiSlice
-
+export const { 
+  useGetTasksQuery, 
+  useAddTaskMutation, 
+  useGetObjectivesQuery,
+  useDeleteTaskMutation
+} = tasksApiSlice;
